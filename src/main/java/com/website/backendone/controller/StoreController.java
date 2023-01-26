@@ -3,16 +3,16 @@ package com.website.backendone.controller;
 import com.website.backendone.constants.JacksonFilterConstants;
 import com.website.backendone.entity.Category;
 import com.website.backendone.entity.Product;
+import com.website.backendone.entity.Review;
 import com.website.backendone.entity.Section;
 import com.website.backendone.service.CategoryService;
 import com.website.backendone.service.ProductService;
+import com.website.backendone.service.ReviewService;
 import com.website.backendone.service.SectionService;
 import com.website.backendone.utility.MappingJacksonValueBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +24,8 @@ public class StoreController {
     private ProductService productService;
     @Autowired
     private SectionService sectionService;
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/sections")
     public MappingJacksonValue getAllSections() {
@@ -55,6 +57,29 @@ public class StoreController {
     @GetMapping("/products/{id}")
     public MappingJacksonValue getProduct(@PathVariable Integer id) {
         Product product = productService.getProduct(id);
+        return MappingJacksonValueBuilder.init(product)
+                .addFilter(JacksonFilterConstants.PRODUCT_FILTER)
+                .build();
+    }
+
+    @PostMapping("/reviews")
+    public MappingJacksonValue addReview(@RequestBody Review review) {
+//        System.out.println(review.getText());
+//        System.out.println(review.getUserName());
+//        System.out.println(review.getProduct().getProductId());
+//        return null;
+        reviewService.addReview(review);
+        Product product = productService.getProduct(review.getProduct().getProductId());
+        return MappingJacksonValueBuilder.init(product)
+                .addFilter(JacksonFilterConstants.PRODUCT_FILTER)
+                .build();
+
+    }
+
+    @DeleteMapping("/reviews")
+    public MappingJacksonValue deleteReview(@RequestBody Review review) {
+        reviewService.deleteReview(review.getReviewId());
+        Product product = productService.getProduct(review.getProduct().getProductId());
         return MappingJacksonValueBuilder.init(product)
                 .addFilter(JacksonFilterConstants.PRODUCT_FILTER)
                 .build();

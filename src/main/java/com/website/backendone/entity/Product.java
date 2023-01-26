@@ -2,9 +2,12 @@ package com.website.backendone.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.website.backendone.constants.JacksonFilterConstants;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @JsonFilter(JacksonFilterConstants.PRODUCT_FILTER)
 @Entity
@@ -28,4 +31,7 @@ public class Product {
     @ManyToOne
     @JsonBackReference
     private Category category;
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference
+    private List<Review> reviews;
 }
