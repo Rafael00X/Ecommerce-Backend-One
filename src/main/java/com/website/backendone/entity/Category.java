@@ -19,8 +19,8 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue
-    private Integer id;
-    private String name;
+    private Integer categoryId;
+    private String categoryName;
     private String imageUrl;
     @OneToMany(mappedBy = "category")
     @JsonManagedReference

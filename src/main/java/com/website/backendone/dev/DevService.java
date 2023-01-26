@@ -40,16 +40,16 @@ public class DevService {
             Section section;
             for (String[] data : DatabaseBackup.sectionData) {
                 section = new Section();
-                section.setName(data[0]);
+                section.setSectionName(data[0]);
                 sectionRepository.save(section);
             }
 
             Category category;
             for (String[] data : DatabaseBackup.categoryData) {
                 section = new Section();
-                section.setId(Integer.parseInt(data[0]));
+                section.setSectionId(Integer.parseInt(data[0]));
                 category = new Category();
-                category.setName(data[1]);
+                category.setCategoryName(data[1]);
                 category.setSection(section);
                 category.setImageUrl(data[2]);
                 categoryRepository.save(category);
@@ -60,9 +60,9 @@ public class DevService {
             for (int i = 0; i < DatabaseBackup.productData.length; i++) {
                 String[] data = DatabaseBackup.productData[i];
                 category = new Category();
-                category.setId(Integer.parseInt(data[0]));
+                category.setCategoryId(Integer.parseInt(data[0]));
                 product = new Product();
-                product.setName(data[1]);
+                product.setProductName(data[1]);
                 product.setImageUrl(data[2]);
                 product.setCategory(category);
                 data = DatabaseBackup.productPriceData[i];

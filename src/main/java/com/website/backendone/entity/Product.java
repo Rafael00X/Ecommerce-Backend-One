@@ -16,8 +16,8 @@ import lombok.*;
 public class Product {
     @Id
     @GeneratedValue
-    private Integer id;
-    private String name;
+    private Integer productId;
+    private String productName;
     private String imageUrl;
     @Column(length = 1000)
     private String description;

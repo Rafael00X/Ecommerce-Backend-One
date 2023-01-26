@@ -21,8 +21,8 @@ import java.util.List;
 public class Section {
     @Id
     @GeneratedValue
-    private Integer id;
-    private String name;
+    private Integer sectionId;
+    private String sectionName;
     @OneToMany(mappedBy = "section")
     @JsonManagedReference
     private List<Category> categories;
