@@ -1,9 +1,12 @@
 package com.website.backendone.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.website.backendone.constants.JacksonFilterConstants;
 import jakarta.persistence.*;
 import lombok.*;
 
+@JsonFilter(JacksonFilterConstants.PRODUCT_FILTER)
 @Entity
 @Getter
 @Setter
