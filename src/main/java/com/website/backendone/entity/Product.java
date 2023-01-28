@@ -3,13 +3,12 @@ package com.website.backendone.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.website.backendone.constants.JacksonFilterConstants;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
-@JsonFilter(JacksonFilterConstants.PRODUCT_FILTER)
+@JsonFilter(Product.FILTER)
 @Entity
 @Getter
 @Setter
@@ -17,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class Product {
+    public static final String FILTER = "product-filter";
     @Id
     @GeneratedValue
     private Integer productId;

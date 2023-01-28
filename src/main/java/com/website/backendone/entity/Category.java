@@ -3,13 +3,12 @@ package com.website.backendone.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.website.backendone.constants.JacksonFilterConstants;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
-@JsonFilter(JacksonFilterConstants.CATEGORY_FILTER)
+@JsonFilter(Category.FILTER)
 @Entity
 @Getter
 @Setter
@@ -17,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class Category {
+    public static final String FILTER = "category-filter";
     @Id
     @GeneratedValue
     private Integer categoryId;

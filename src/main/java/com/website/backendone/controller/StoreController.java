@@ -1,6 +1,5 @@
 package com.website.backendone.controller;
 
-import com.website.backendone.constants.JacksonFilterConstants;
 import com.website.backendone.entity.Category;
 import com.website.backendone.entity.Product;
 import com.website.backendone.entity.Review;
@@ -31,8 +30,8 @@ public class StoreController {
     public MappingJacksonValue getAllSections() {
         List<Section> sections = sectionService.getAllSections();
         return MappingJacksonValueBuilder.init(sections)
-                .addFilter(JacksonFilterConstants.SECTION_FILTER)
-                .addFilter(JacksonFilterConstants.CATEGORY_FILTER, "products")
+                .addFilter(Section.FILTER)
+                .addFilter(Category.FILTER, "products")
                 .build();
     }
 
@@ -40,8 +39,8 @@ public class StoreController {
     public MappingJacksonValue getSection(@PathVariable Integer id) {
         Section section = sectionService.getSection(id);
         return MappingJacksonValueBuilder.init(section)
-                .addFilter(JacksonFilterConstants.SECTION_FILTER)
-                .addFilter(JacksonFilterConstants.CATEGORY_FILTER, "products")
+                .addFilter(Section.FILTER)
+                .addFilter(Category.FILTER, "products")
                 .build();
     }
 
@@ -49,8 +48,8 @@ public class StoreController {
     public MappingJacksonValue getCategory(@PathVariable Integer id) {
         Category category = categoryService.getCategory(id);
         return MappingJacksonValueBuilder.init(category)
-                .addFilter(JacksonFilterConstants.CATEGORY_FILTER)
-                .addFilter(JacksonFilterConstants.PRODUCT_FILTER)
+                .addFilter(Category.FILTER)
+                .addFilter(Product.FILTER)
                 .build();
     }
 
@@ -58,20 +57,16 @@ public class StoreController {
     public MappingJacksonValue getProduct(@PathVariable Integer id) {
         Product product = productService.getProduct(id);
         return MappingJacksonValueBuilder.init(product)
-                .addFilter(JacksonFilterConstants.PRODUCT_FILTER)
+                .addFilter(Product.FILTER)
                 .build();
     }
 
     @PostMapping("/reviews")
     public MappingJacksonValue addReview(@RequestBody Review review) {
-//        System.out.println(review.getText());
-//        System.out.println(review.getUserName());
-//        System.out.println(review.getProduct().getProductId());
-//        return null;
         reviewService.addReview(review);
         Product product = productService.getProduct(review.getProduct().getProductId());
         return MappingJacksonValueBuilder.init(product)
-                .addFilter(JacksonFilterConstants.PRODUCT_FILTER)
+                .addFilter(Product.FILTER)
                 .build();
 
     }
@@ -81,7 +76,7 @@ public class StoreController {
         reviewService.deleteReview(review.getReviewId());
         Product product = productService.getProduct(review.getProduct().getProductId());
         return MappingJacksonValueBuilder.init(product)
-                .addFilter(JacksonFilterConstants.PRODUCT_FILTER)
+                .addFilter(Product.FILTER)
                 .build();
     }
 
