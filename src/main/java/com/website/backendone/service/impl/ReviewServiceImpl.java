@@ -1,7 +1,8 @@
-package com.website.backendone.service;
+package com.website.backendone.service.impl;
 
 import com.website.backendone.entity.Review;
 import com.website.backendone.repository.ReviewRepository;
+import com.website.backendone.service.ReviewService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
