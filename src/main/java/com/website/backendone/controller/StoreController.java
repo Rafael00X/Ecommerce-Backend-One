@@ -38,7 +38,7 @@ public class StoreController {
 
     @GetMapping("/sections/{id}")
     public MappingJacksonValue getSection(@PathVariable Integer id) {
-        Section section = sectionService.getSection(id);
+        Section section = sectionService.getSectionById(id);
         return MappingJacksonValueBuilder.init(section)
                 .addFilter(Section.FILTER)
                 .addFilter(Category.FILTER, "products")
@@ -47,7 +47,7 @@ public class StoreController {
 
     @GetMapping("/categories/{id}")
     public MappingJacksonValue getCategory(@PathVariable Integer id) {
-        Category category = categoryService.getCategory(id);
+        Category category = categoryService.getCategoryById(id);
         return MappingJacksonValueBuilder.init(category)
                 .addFilter(Category.FILTER)
                 .addFilter(Product.FILTER)
@@ -56,7 +56,7 @@ public class StoreController {
 
     @GetMapping("/products/{id}")
     public MappingJacksonValue getProduct(@PathVariable Integer id) {
-        Product product = productService.getProduct(id);
+        Product product = productService.getProductById(id);
         return MappingJacksonValueBuilder.init(product)
                 .addFilter(Product.FILTER)
                 .build();
@@ -66,7 +66,7 @@ public class StoreController {
     public MappingJacksonValue getProducts(@RequestBody List<Integer> ids) {
         List<Product> products = new ArrayList<>();
         for (Integer id: ids) {
-            Product product = productService.getProduct(id);
+            Product product = productService.getProductById(id);
             if (product != null) products.add(product);
         }
         return MappingJacksonValueBuilder.init(products)
@@ -82,7 +82,7 @@ public class StoreController {
     @PostMapping("/reviews")
     public MappingJacksonValue addReview(@RequestBody Review review) {
         reviewService.addReview(review);
-        Product product = productService.getProduct(review.getProduct().getProductId());
+        Product product = productService.getProductById(review.getProduct().getProductId());
         return MappingJacksonValueBuilder.init(product)
                 .addFilter(Product.FILTER)
                 .build();
@@ -91,8 +91,8 @@ public class StoreController {
 
     @DeleteMapping("/reviews")
     public MappingJacksonValue deleteReview(@RequestBody Review review) {
-        reviewService.deleteReview(review.getReviewId());
-        Product product = productService.getProduct(review.getProduct().getProductId());
+        reviewService.deleteReviewById(review.getReviewId());
+        Product product = productService.getProductById(review.getProduct().getProductId());
         return MappingJacksonValueBuilder.init(product)
                 .addFilter(Product.FILTER)
                 .build();

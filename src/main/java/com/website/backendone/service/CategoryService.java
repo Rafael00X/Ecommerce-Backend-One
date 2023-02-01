@@ -14,7 +14,7 @@ public class CategoryService {
         this.repository = repository;
     }
 
-    public Category getCategory(Integer id) {
+    public Category getCategoryById(Integer id) {
         return repository.findById(id).orElse(null);
     }
 }

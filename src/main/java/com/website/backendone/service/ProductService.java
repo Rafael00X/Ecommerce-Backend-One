@@ -14,7 +14,7 @@ public class ProductService {
         this.repository = repository;
     }
 
-    public Product getProduct(Integer id) {
+    public Product getProductById(Integer id) {
         return repository.findById(id).orElse(null);
     }
 }

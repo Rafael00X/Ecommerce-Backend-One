@@ -20,7 +20,7 @@ public class SectionService {
         return repository.findAll();
     }
 
-    public Section getSection(Integer id) {
+    public Section getSectionById(Integer id) {
         return repository.findById(id).orElse(null);
     }
 }

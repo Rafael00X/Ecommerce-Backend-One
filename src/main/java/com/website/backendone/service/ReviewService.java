@@ -16,15 +16,11 @@ public class ReviewService {
         this.repository = repository;
     }
 
-    public Review getReview(Integer id) {
-        return repository.findById(id).orElse(null);
-    }
-
     public void addReview(Review review) {
         repository.save(review);
     }
 
-    public String deleteReview(Integer id) {
+    public String deleteReviewById(Integer id) {
         repository.deleteById(id);
         return "Review deleted successfully!";
     }
