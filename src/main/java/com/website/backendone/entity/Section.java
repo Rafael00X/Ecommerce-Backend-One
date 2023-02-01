@@ -2,10 +2,7 @@ package com.website.backendone.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -23,7 +20,7 @@ public class Section {
     @GeneratedValue
     private Integer sectionId;
     private String sectionName;
-    @OneToMany(mappedBy = "section")
+    @OneToMany(mappedBy = "section", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Category> categories;
 }
