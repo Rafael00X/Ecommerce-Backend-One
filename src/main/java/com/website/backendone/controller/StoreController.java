@@ -6,6 +6,7 @@ import com.website.backendone.entity.Review;
 import com.website.backendone.entity.Section;
 import com.website.backendone.service.*;
 import com.website.backendone.utility.MappingJacksonValueBuilder;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 public class StoreController {
     @Autowired
     private CategoryService categoryService;
@@ -83,7 +85,6 @@ public class StoreController {
         return MappingJacksonValueBuilder.init(product)
                 .addFilter(Product.FILTER)
                 .build();
-
     }
 
     @DeleteMapping("/reviews")
