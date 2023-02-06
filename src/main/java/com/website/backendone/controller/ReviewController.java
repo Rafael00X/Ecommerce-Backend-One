@@ -7,11 +7,13 @@ import com.website.backendone.service.FetchService;
 import com.website.backendone.service.ProductService;
 import com.website.backendone.service.ReviewService;
 import com.website.backendone.utility.MappingJacksonValueBuilder;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 public class ReviewController {
     @Autowired
     private FetchService fetchService;
