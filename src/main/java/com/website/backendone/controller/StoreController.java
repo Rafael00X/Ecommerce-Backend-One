@@ -2,10 +2,10 @@ package com.website.backendone.controller;
 
 import com.website.backendone.entity.Category;
 import com.website.backendone.entity.Product;
-import com.website.backendone.entity.Review;
 import com.website.backendone.entity.Section;
 import com.website.backendone.service.*;
 import com.website.backendone.utility.MappingJacksonValueBuilder;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 public class StoreController {
     @Autowired
     private CategoryService categoryService;
@@ -62,7 +63,7 @@ public class StoreController {
     @PostMapping("/products")
     public MappingJacksonValue getProducts(@RequestBody List<Integer> ids) {
         List<Product> products = new ArrayList<>();
-        for (Integer id: ids) {
+        for (Integer id : ids) {
             Product product = productService.getProductById(id);
             if (product != null) products.add(product);
         }
