@@ -28,10 +28,10 @@ public class Product {
     private Integer sellingPrice;
     private Integer reviewCount;
     private Integer totalRating;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonBackReference
     private Category category;
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product")
     @JsonManagedReference
     private List<Review> reviews;
 }

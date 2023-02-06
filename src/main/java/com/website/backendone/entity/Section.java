@@ -20,7 +20,7 @@ public class Section {
     @GeneratedValue
     private Integer sectionId;
     private String sectionName;
-    @OneToMany(mappedBy = "section", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "section")
     @JsonManagedReference
     private List<Category> categories;
 }

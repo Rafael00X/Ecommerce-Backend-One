@@ -25,7 +25,7 @@ public class Review {
     private String text;
     @CreationTimestamp
     private Date createdAt;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonBackReference
     private Product product;
 }

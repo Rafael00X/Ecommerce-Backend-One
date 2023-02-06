@@ -22,10 +22,10 @@ public class Category {
     private Integer categoryId;
     private String categoryName;
     private String imageUrl;
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category")
     @JsonManagedReference
     private List<Product> products;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonBackReference
     private Section section;
 }
