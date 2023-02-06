@@ -25,14 +25,12 @@ public class ReviewController {
         User user = fetchService.validateToken(token);
         if (review.getUserId().intValue() != user.getUserId().intValue())
             throw new RuntimeException("Token does not match user");
-        review.setUserId(user.getUserId());
         review.setUserName(user.getUserName());
         reviewService.addReview(review);
         Product product = productService.getProductById(review.getProduct().getProductId());
         return MappingJacksonValueBuilder.init(product)
                 .addFilter(Product.FILTER)
                 .build();
-
     }
 
     @DeleteMapping("/reviews")

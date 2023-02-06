@@ -75,24 +75,4 @@ public class StoreController {
                         "reviews")
                 .build();
     }
-
-//    @PostMapping("/reviews")
-//    public MappingJacksonValue addReview(@RequestBody Review review) {
-//        reviewService.addReview(review);
-//        Product product = productService.getProductById(review.getProduct().getProductId());
-//        return MappingJacksonValueBuilder.init(product)
-//                .addFilter(Product.FILTER)
-//                .build();
-//
-//    }
-//
-//    @DeleteMapping("/reviews")
-//    public MappingJacksonValue deleteReview(@RequestBody Review review) {
-//        reviewService.deleteReviewById(review.getReviewId());
-//        Product product = productService.getProductById(review.getProduct().getProductId());
-//        return MappingJacksonValueBuilder.init(product)
-//                .addFilter(Product.FILTER)
-//                .build();
-//    }
-
 }
