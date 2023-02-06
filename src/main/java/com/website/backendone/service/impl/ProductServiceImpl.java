@@ -17,4 +17,8 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductById(Integer id) {
         return repository.findById(id).orElse(null);
     }
+
+    public Product updateProduct(Product product) {
+        return repository.save(product);
+    }
 }

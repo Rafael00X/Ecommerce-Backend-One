@@ -30,6 +30,9 @@ public class ReviewController {
         review.setUserName(user.getUserName());
         reviewService.addReview(review);
         Product product = productService.getProductById(review.getProduct().getProductId());
+        product.setReviewCount(product.getReviewCount() + 1);
+        product.setTotalRating(product.getTotalRating() + review.getRating());
+        product = productService.updateProduct(product);
         return MappingJacksonValueBuilder.init(product)
                 .addFilter(Product.FILTER)
                 .build();
@@ -40,8 +43,12 @@ public class ReviewController {
         User user = fetchService.validateToken(token);
         if (review.getUserId().intValue() != user.getUserId().intValue())
             throw new RuntimeException("Token does not match user");
+        Review deletedReview = reviewService.getReviewById(review.getReviewId());
         reviewService.deleteReviewById(review.getReviewId());
         Product product = productService.getProductById(review.getProduct().getProductId());
+        product.setReviewCount(product.getReviewCount() - 1);
+        product.setTotalRating(product.getTotalRating() - deletedReview.getRating());
+        product = productService.updateProduct(product);
         return MappingJacksonValueBuilder.init(product)
                 .addFilter(Product.FILTER)
                 .build();

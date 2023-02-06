@@ -21,4 +21,8 @@ public class ReviewServiceImpl implements ReviewService {
     public void deleteReviewById(Integer id) {
         repository.deleteById(id);
     }
+
+    public Review getReviewById(Integer id) {
+        return repository.findById(id).orElse(null);
+    }
 }
