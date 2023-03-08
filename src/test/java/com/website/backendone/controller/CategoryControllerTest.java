@@ -26,7 +26,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    void getCategory() {
+    void getCategory_ShouldQueryCategory() {
         // Given
         Integer id = 1;
 

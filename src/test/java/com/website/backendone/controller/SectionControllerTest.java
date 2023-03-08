@@ -25,7 +25,7 @@ class SectionControllerTest {
     }
 
     @Test
-    void getAllSections() {
+    void getAllSections_ShouldQueryAllSections() {
         // When
         underTest.getAllSections();
 
@@ -34,7 +34,7 @@ class SectionControllerTest {
     }
 
     @Test
-    void getSection() {
+    void getSection_ShouldQuerySection() {
         // Given
         Integer id = 1;
 

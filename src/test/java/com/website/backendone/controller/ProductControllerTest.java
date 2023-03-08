@@ -27,7 +27,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void getProduct() {
+    void getProduct_ShouldQueryProduct() {
         // Given
         Integer id = 1;
 
@@ -39,7 +39,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void getProducts() {
+    void getProducts_ShouldQueryProducts() {
         // Given
         List<Integer> ids = List.of(1, 2, 3, 4);
 
@@ -47,9 +47,8 @@ class ProductControllerTest {
         underTest.getProducts(ids);
 
         // Then
-        verify(productService).getProductById(1);
-        verify(productService).getProductById(2);
-        verify(productService).getProductById(3);
-        verify(productService).getProductById(4);
+        for (Integer id : ids) {
+            verify(productService).getProductById(id);
+        }
     }
 }

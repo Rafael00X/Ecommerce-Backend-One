@@ -11,6 +11,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,65 +30,134 @@ class ReviewControllerTest {
         underTest = new ReviewController(fetchService, productService, reviewService);
     }
 
-    @Test
-    void addReview() {
-        // Given
-        Integer productId = 1;
-        Integer userId = 1;
+    private Product getProduct(Integer productId, Integer reviewCount, Integer totalRating) {
         Product product = new Product();
         product.setProductId(productId);
-        product.setReviewCount(0);
-        product.setTotalRating(0);
+        product.setReviewCount(reviewCount);
+        product.setTotalRating(totalRating);
+        return product;
+    }
+
+    private Review getReview(Integer reviewId, Integer userId, Product product, Integer rating) {
         Review review = new Review();
+        review.setReviewId(reviewId);
+        review.setRating(rating);
         review.setUserId(userId);
         review.setProduct(product);
-        review.setRating(5);
+        return review;
+    }
+
+    @Test
+    void addReview_ShouldAddReview() {
+        // Given
+        Integer productId = 1;
+        Integer reviewCount = 3;
+        Integer totalRating = 12;
+        Integer userId = 1;
+        Integer reviewId = 1;
+        Integer rating = 4;
         String token = "jwt-token";
+
+        Product product = getProduct(productId, reviewCount, totalRating);
+        Review review = getReview(reviewId, userId, product, rating);
+        Product updatedProduct = getProduct(productId, reviewCount + 1, totalRating + rating);
         User tokenUser = new User();
         tokenUser.setUserId(userId);
+
         when(fetchService.validateToken(token)).thenReturn(tokenUser);
         when(productService.getProductById(productId)).thenReturn(product);
+        when(productService.updateProduct(product)).thenReturn(updatedProduct);
 
         // When
         underTest.addReview(token, review);
 
         // Then
-        ArgumentCaptor<Review> reviewArgumentCaptor = ArgumentCaptor.forClass(Review.class);
-        verify(reviewService).addReview(reviewArgumentCaptor.capture());
-        Review capturedReview = reviewArgumentCaptor.getValue();
-        assert(capturedReview.equals(review));
+        verify(reviewService).addReview(review);
     }
 
     @Test
-    void deleteReview() {
+    void addReview_ShouldUpdateProduct() {
         // Given
         Integer productId = 1;
+        Integer reviewCount = 3;
+        Integer totalRating = 12;
         Integer userId = 1;
         Integer reviewId = 1;
-        Product product = new Product();
-        product.setProductId(productId);
-        product.setReviewCount(3);
-        product.setTotalRating(12);
-        Review review = new Review();
-        review.setReviewId(reviewId);
-        review.setRating(4);
-        review.setUserId(userId);
-        review.setProduct(product);
+        Integer rating = 4;
         String token = "jwt-token";
+
+        Product product = getProduct(productId, reviewCount, totalRating);
+        Review review = getReview(reviewId, userId, product, rating);
+        Product updatedProduct = getProduct(productId, reviewCount + 1, totalRating + rating);
         User tokenUser = new User();
         tokenUser.setUserId(userId);
+
+        when(fetchService.validateToken(token)).thenReturn(tokenUser);
+        when(productService.getProductById(productId)).thenReturn(product);
+        when(productService.updateProduct(product)).thenReturn(updatedProduct);
+
+        // When
+        underTest.addReview(token, review);
+
+        // Then
+        verify(productService).updateProduct(updatedProduct);
+    }
+
+    @Test
+    void deleteReview_ShouldDeleteReview() {
+        // Given
+        Integer productId = 1;
+        Integer reviewCount = 3;
+        Integer totalRating = 12;
+        Integer userId = 1;
+        Integer reviewId = 1;
+        Integer rating = 4;
+        String token = "jwt-token";
+
+        Product product = getProduct(productId, reviewCount, totalRating);
+        Review review = getReview(reviewId, userId, product, rating);
+        Product updatedProduct = getProduct(productId, reviewCount - 1, totalRating - rating);
+        User tokenUser = new User();
+        tokenUser.setUserId(userId);
+
         when(fetchService.validateToken(token)).thenReturn(tokenUser);
         when(reviewService.getReviewById(reviewId)).thenReturn(review);
         when(productService.getProductById(productId)).thenReturn(product);
-        when(productService.updateProduct(product)).thenReturn(product);
+        when(productService.updateProduct(product)).thenReturn(updatedProduct);
 
         // When
         underTest.deleteReview(token, review);
 
         // Then
-        ArgumentCaptor<Integer> idArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
-        verify(reviewService).deleteReviewById(idArgumentCaptor.capture());
-        Integer capturedId = idArgumentCaptor.getValue();
-        assert(capturedId.equals(review.getReviewId()));
+        verify(reviewService).deleteReviewById(reviewId);
+    }
+
+    @Test
+    void deleteReview_ShouldUpdateProduct() {
+        // Given
+        Integer productId = 1;
+        Integer reviewCount = 3;
+        Integer totalRating = 12;
+        Integer userId = 1;
+        Integer reviewId = 1;
+        Integer rating = 4;
+        String token = "jwt-token";
+
+        Product product = getProduct(productId, reviewCount, totalRating);
+        Review review = getReview(reviewId, userId, product, rating);
+        Product updatedProduct = getProduct(productId, reviewCount - 1, totalRating - rating);
+        User tokenUser = new User();
+        tokenUser.setUserId(userId);
+
+        when(fetchService.validateToken(token)).thenReturn(tokenUser);
+        when(reviewService.getReviewById(reviewId)).thenReturn(review);
+        when(productService.getProductById(productId)).thenReturn(product);
+        when(productService.updateProduct(product)).thenReturn(updatedProduct);
+
+        // When
+        underTest.deleteReview(token, review);
+
+        // Then
+        verify(productService).updateProduct(updatedProduct);
     }
 }
