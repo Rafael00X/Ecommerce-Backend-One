@@ -2,6 +2,7 @@ package com.website.backendone.controller;
 
 import com.website.backendone.entity.Product;
 import com.website.backendone.entity.Review;
+import com.website.backendone.exception.NotAuthorizedException;
 import com.website.backendone.model.User;
 import com.website.backendone.service.FetchService;
 import com.website.backendone.service.ProductService;
@@ -26,7 +27,7 @@ public class ReviewController {
     public MappingJacksonValue addReview(@RequestHeader(name = "Authorization") String token, @RequestBody Review review) {
         User user = fetchService.validateToken(token);
         if (review.getUserId().intValue() != user.getUserId().intValue())
-            throw new RuntimeException("Token does not match user");
+            throw new NotAuthorizedException();
         review.setUserName(user.getUserName());
         reviewService.addReview(review);
         Product product = productService.getProductById(review.getProduct().getProductId());
@@ -42,7 +43,7 @@ public class ReviewController {
     public MappingJacksonValue deleteReview(@RequestHeader(name = "Authorization") String token, @RequestBody Review review) {
         User user = fetchService.validateToken(token);
         if (review.getUserId().intValue() != user.getUserId().intValue())
-            throw new RuntimeException("Token does not match user");
+            throw new NotAuthorizedException();
         Review deletedReview = reviewService.getReviewById(review.getReviewId());
         reviewService.deleteReviewById(review.getReviewId());
         Product product = productService.getProductById(review.getProduct().getProductId());
