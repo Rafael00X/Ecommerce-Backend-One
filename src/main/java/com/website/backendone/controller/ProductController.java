@@ -15,42 +15,9 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class StoreController {
-    @Autowired
-    private CategoryService categoryService;
+public class ProductController {
     @Autowired
     private ProductService productService;
-    @Autowired
-    private SectionService sectionService;
-    @Autowired
-    private ReviewService reviewService;
-
-    @GetMapping("/sections")
-    public MappingJacksonValue getAllSections() {
-        List<Section> sections = sectionService.getAllSections();
-        return MappingJacksonValueBuilder.init(sections)
-                .addFilter(Section.FILTER)
-                .addFilter(Category.FILTER, "products")
-                .build();
-    }
-
-    @GetMapping("/sections/{id}")
-    public MappingJacksonValue getSection(@PathVariable Integer id) {
-        Section section = sectionService.getSectionById(id);
-        return MappingJacksonValueBuilder.init(section)
-                .addFilter(Section.FILTER)
-                .addFilter(Category.FILTER, "products")
-                .build();
-    }
-
-    @GetMapping("/categories/{id}")
-    public MappingJacksonValue getCategory(@PathVariable Integer id) {
-        Category category = categoryService.getCategoryById(id);
-        return MappingJacksonValueBuilder.init(category)
-                .addFilter(Category.FILTER)
-                .addFilter(Product.FILTER)
-                .build();
-    }
 
     @GetMapping("/products/{id}")
     public MappingJacksonValue getProduct(@PathVariable Integer id) {

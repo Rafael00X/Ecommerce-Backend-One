@@ -31,15 +31,21 @@ class ReviewControllerTest {
     @Test
     void addReview() {
         // Given
+        Integer productId = 1;
+        Integer userId = 1;
         Product product = new Product();
-        product.setProductId(1);
+        product.setProductId(productId);
+        product.setReviewCount(0);
+        product.setTotalRating(0);
         Review review = new Review();
-        review.setUserId(1);
+        review.setUserId(userId);
         review.setProduct(product);
+        review.setRating(5);
         String token = "jwt-token";
         User tokenUser = new User();
-        tokenUser.setUserId(1);
+        tokenUser.setUserId(userId);
         when(fetchService.validateToken(token)).thenReturn(tokenUser);
+        when(productService.getProductById(productId)).thenReturn(product);
 
         // When
         underTest.addReview(token, review);
@@ -54,16 +60,25 @@ class ReviewControllerTest {
     @Test
     void deleteReview() {
         // Given
+        Integer productId = 1;
+        Integer userId = 1;
+        Integer reviewId = 1;
         Product product = new Product();
-        product.setProductId(1);
+        product.setProductId(productId);
+        product.setReviewCount(3);
+        product.setTotalRating(12);
         Review review = new Review();
-        review.setReviewId(1);
-        review.setUserId(1);
+        review.setReviewId(reviewId);
+        review.setRating(4);
+        review.setUserId(userId);
         review.setProduct(product);
         String token = "jwt-token";
         User tokenUser = new User();
-        tokenUser.setUserId(1);
+        tokenUser.setUserId(userId);
         when(fetchService.validateToken(token)).thenReturn(tokenUser);
+        when(reviewService.getReviewById(reviewId)).thenReturn(review);
+        when(productService.getProductById(productId)).thenReturn(product);
+        when(productService.updateProduct(product)).thenReturn(product);
 
         // When
         underTest.deleteReview(token, review);

@@ -2,7 +2,6 @@ package com.website.backendone.service;
 
 import com.website.backendone.entity.Review;
 import com.website.backendone.repository.ReviewRepository;
-import com.website.backendone.service.impl.ReviewServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,10 +9,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Instant;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,7 +18,7 @@ class ReviewServiceTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new ReviewServiceImpl(reviewRepository);
+        underTest = new com.website.backendone.service.ReviewService(reviewRepository);
     }
 
     @Test

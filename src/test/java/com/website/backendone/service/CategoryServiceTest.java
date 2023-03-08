@@ -1,15 +1,12 @@
 package com.website.backendone.service;
 
-import com.website.backendone.entity.Category;
 import com.website.backendone.repository.CategoryRepository;
-import com.website.backendone.service.impl.CategoryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.mockito.Mockito.verify;
 
@@ -21,7 +18,7 @@ class CategoryServiceTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new CategoryServiceImpl(categoryRepository);
+        underTest = new com.website.backendone.service.CategoryService(categoryRepository);
     }
 
     @Test
