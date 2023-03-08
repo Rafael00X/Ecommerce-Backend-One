@@ -5,7 +5,6 @@ import com.website.backendone.repository.ReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -30,10 +29,7 @@ class ReviewServiceTest {
         underTest.addReview(review);
 
         // Then
-        ArgumentCaptor<Review> reviewArgumentCaptor = ArgumentCaptor.forClass(Review.class);
-        verify(reviewRepository).save(reviewArgumentCaptor.capture());
-        Review capturedReview = reviewArgumentCaptor.getValue();
-        assert(capturedReview.equals(review));
+        verify(reviewRepository).save(review);
     }
 
     @Test
@@ -45,9 +41,6 @@ class ReviewServiceTest {
         underTest.deleteReviewById(id);
 
         // Then
-        ArgumentCaptor<Integer> idArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
-        verify(reviewRepository).deleteById(idArgumentCaptor.capture());
-        Integer capturedId = idArgumentCaptor.getValue();
-        assert(capturedId.equals(id));
+        verify(reviewRepository).deleteById(id);
     }
 }

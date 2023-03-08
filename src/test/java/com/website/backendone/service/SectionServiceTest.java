@@ -4,7 +4,6 @@ import com.website.backendone.repository.SectionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -39,9 +38,6 @@ class SectionServiceTest {
         underTest.getSectionById(id);
 
         // Then
-        ArgumentCaptor<Integer> idArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
-        verify(sectionRepository).findById(idArgumentCaptor.capture());
-        Integer capturedId = idArgumentCaptor.getValue();
-        assert(capturedId.equals(id));
+        verify(sectionRepository).findById(id);
     }
 }
