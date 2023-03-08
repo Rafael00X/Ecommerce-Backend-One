@@ -5,42 +5,40 @@ import com.website.backendone.entity.Product;
 import com.website.backendone.entity.Section;
 import com.website.backendone.repository.CategoryRepository;
 import com.website.backendone.repository.ProductRepository;
+import com.website.backendone.repository.ReviewRepository;
 import com.website.backendone.repository.SectionRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class DevService {
-    private final SectionRepository sectionRepository;
-    private final CategoryRepository categoryRepository;
-    private final ProductRepository productRepository;
-
     @Autowired
-    public DevService(
-            CategoryRepository categoryRepository,
-            ProductRepository productRepository,
-            SectionRepository sectionRepository) {
-        this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
-        this.sectionRepository = sectionRepository;
-    }
+    private final ReviewRepository reviewRepository;
+    @Autowired
+    private final ProductRepository productRepository;
+    @Autowired
+    private final CategoryRepository categoryRepository;
+    @Autowired
+    private final SectionRepository sectionRepository;
 
     public boolean resetDatabase() {
         try {
-            categoryRepository.deleteAll();
+            reviewRepository.resetSequence();
+            productRepository.resetSequence();
+            categoryRepository.resetSequence();
+            sectionRepository.resetSequence();
+
+            reviewRepository.deleteAll();
             productRepository.deleteAll();
+            categoryRepository.deleteAll();
             sectionRepository.deleteAll();
 
-//        User user = new User();
-//        user.setUserName("Subhadeep Chakraborty");
-//        user.setEmail("user1@gmail.com");
-//        user.setPassword(PasswordEncryptor.encrypt("pass"));
-//        userRepository.save(user);
-
             Section section;
-            for (String[] data : DatabaseBackup.sectionData) {
+            for (String data : DatabaseBackup.sectionData) {
                 section = new Section();
-                section.setSectionName(data[0]);
+                section.setSectionName(data);
                 sectionRepository.save(section);
             }
 

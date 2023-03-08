@@ -3,10 +3,10 @@ package com.website.backendone.dev;
 public class DatabaseBackup {
     private DatabaseBackup() {}
 
-    public static String[][] sectionData = {
-            {"Electronics"},
-            {"Decoration"},
-            {"Sports"},
+    public static String[] sectionData = {
+            "Electronics",
+            "Decoration",
+            "Sports",
     };
 
     public static String[][] categoryData = {

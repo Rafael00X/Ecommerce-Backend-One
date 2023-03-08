@@ -19,7 +19,8 @@ import java.util.List;
 public class Product {
     public static final String FILTER = "product-filter";
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "productSequence", sequenceName = "product_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productSequence")
     private Integer productId;
     private String productName;
     private String imageUrl;

@@ -18,7 +18,8 @@ import java.util.List;
 public class Section {
     public static final String FILTER = "section-filter";
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "sectionSequence", sequenceName = "section_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sectionSequence")
     private Integer sectionId;
     private String sectionName;
     @OneToMany(mappedBy = "section")

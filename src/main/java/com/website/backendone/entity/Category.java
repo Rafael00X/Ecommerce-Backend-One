@@ -19,7 +19,8 @@ import java.util.List;
 public class Category {
     public static final String FILTER = "category-filter";
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "categorySequence", sequenceName = "category_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categorySequence")
     private Integer categoryId;
     private String categoryName;
     private String imageUrl;

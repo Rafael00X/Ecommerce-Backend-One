@@ -2,8 +2,6 @@ package com.website.backendone.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -18,7 +16,8 @@ import java.util.Date;
 @EqualsAndHashCode
 public class Review {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "reviewSequence", sequenceName = "review_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reviewSequence")
     private Integer reviewId;
     private Integer userId;
     private String userName;
