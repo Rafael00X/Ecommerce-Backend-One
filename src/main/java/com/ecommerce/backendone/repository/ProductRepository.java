@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Modifying
     @Query(value = "UPDATE product_sequence SET next_val = 1", nativeQuery = true)
     void resetSequence();
+
+    Product[] findByProductNameContainingIgnoreCaseOrCategoryCategoryNameContainingIgnoreCase(String text1, String text2);
 }

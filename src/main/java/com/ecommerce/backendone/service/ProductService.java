@@ -20,4 +20,8 @@ public class ProductService {
     public Product updateProduct(Product product) {
         return repository.save(product);
     }
+
+    public Product[] getProductsWithText(String text) {
+        return repository.findByProductNameContainingIgnoreCaseOrCategoryCategoryNameContainingIgnoreCase(text, text);
+    }
 }

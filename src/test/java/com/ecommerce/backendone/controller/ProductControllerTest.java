@@ -47,4 +47,17 @@ class ProductControllerTest {
             verify(productService).getProductById(id);
         }
     }
+
+    @Test
+    void getProductsWithTextLike_ShouldQueryProducts() {
+        // Given
+        String text = "some-text";
+
+        // When
+        underTest.getProductsWithTextLike(text);
+
+        // Then
+        verify(productService).getProductsWithText(text);
+
+    }
 }

@@ -41,4 +41,17 @@ public class ProductController {
                         "reviews")
                 .build();
     }
+
+    @GetMapping("/products/search")
+    public MappingJacksonValue getProductsWithTextLike(@RequestParam String text) {
+        Product[] products = productService.getProductsWithText(text);
+        return MappingJacksonValueBuilder.init(products)
+                .addFilter(Product.FILTER,
+                        "description",
+                        "reviwCount",
+                        "totalRating",
+                        "category",
+                        "reviews")
+                .build();
+    }
 }
